@@ -1,3 +1,44 @@
 body {
-    background-color: #a3c2cb;
+    background-color: #adb1ff;
+}
+
+header {
+    text-align: center;
+    background: linear-gradient(to bottom, #3500c7f3, #4c00ff);
+    color: #fff;
+    padding: 15px;
+}
+
+/* paragraph Frst letter should to be capitalized! */
+p::first-letter {
+    text-transform: uppercase;
+  }
+
+.forecast-container {
+    /* border: 1px solid black;
+    border-radius: 5px; */
+    display: flex;
+
+}
+.forecast {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px;
+    /* background-color: #4704ffc8; */
+    color: white;
+    flex-basis: 20%;
+    padding: 5px 10px;
+    background: linear-gradient(to left, #0048ff, #001eff);
+}
+
+.hidden {
+    display: none;
+}
+
+#saved-cities-container {
+    padding: 10px
+}
+
+#saved-cities-container button{
+ margin: 10px 0;
 }

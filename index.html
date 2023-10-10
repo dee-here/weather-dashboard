@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,31 +10,43 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
+
 <body>
-    <header><h1>Weather Dashboard</h1></header>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
     <main class="container-fluid">
         <section class="row">
-            <section class="col-md-2 search">
-                <h2>Search for a city</h2>
-                <input id="search-text" type="text"></input>
+            <section class="col-md-4 search">
+                <h3>Search for a city</h3>
+                
                 <div class="row">
-                    <button id="search-btn" class="btn btn-primary btn-block" onclick="getSearchResults(event)">Search</button>
+                    <input id="search-text" type="text"/>
+                    <hr/>
+                    <button id="search-btn" class="btn btn-primary btn-block"
+                        onclick="getSearchResults(event)">Search</button>
                 </div>
-                <hr/>
-                <div>
+                <hr />
+                <div class="row" id="saved-cities-container">
                     Saved cities!
                 </div>
             </section>
-            <section class="col-md-10 results">
-                right 
+            <section class="col-md-8 results">
+                <div class="todays-weather-container" id="todays-weather">
+                    <br/><br/><br/>
+                </div>
+                <p id="five-day-forecast-text" class="hidden">5-Day Forecast:</p>
+                <div class="forecast-container" id="forecast-container">
+                </div>
             </section>
         </section>
     </main>
-    <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"
-  ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
