@@ -41,7 +41,6 @@ var todayWeather;
 function updateSavedCities(searchedCity) {
     //when user click on search, save the city to local storage. 
     savedCities = JSON.parse(localStorage.getItem('citiesArray')) || [];
-    console.log("savedCities is: ", savedCities);
     //if length of saved string is more than 8; remove the first iem and push in the new city and save to localstorage
     if(searchedCity && !savedCities.includes(searchedCity.trim())) {
         if(savedCities?.length > 7) {
@@ -112,7 +111,7 @@ function getGeolocationApi() {
 }
 
 function getWeatherApi() {
-    var requestUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
+    var requestUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
 
     fetch(requestUrl)
         .then(function (response) {
