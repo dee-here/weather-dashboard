@@ -14,7 +14,7 @@
 
 
 ## Screen Recording
-![Weather dashboard working gif](./assets/images/weather-dash-new.mp4)
+![Weather dashboard working gif](./assets/images/weather-dash-new.gif)
 
 
 ## Author Info
