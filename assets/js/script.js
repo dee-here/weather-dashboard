@@ -6,10 +6,11 @@ var todaysWeatherContainerEl = document.querySelector('#todays-weather');
 
 var citiesContainerEl = document.getElementById("saved-cities-container");
 var fiveDayForecastEL = document.getElementById("five-day-forecast-text");
+var inValidCityEl = document.getElementById("invalid-city");
 
 //global variables
 var apiKey = '84f1f04fe0b05f9704f36a0db8c8b0cf';
-var city = 'San Francisco';
+var city;
 
 //curent date
 var today = dayjs();
@@ -18,10 +19,11 @@ var latitude;
 var longitude;
 
 //localStorage
+//update this array and save to local storage everytime the user clicks on search and we have a valid city !!
 var savedCities;
-//onInit check if there are saved cities in local sotgare, fetch and dis[lay buttons for each]
+//onInit check if there are saved cities in local sotgare, fetch and display buttons for each
 //else saved cities = [];
-//update this array and save to local storage everytime the user clicks on searc and we have a valid city !!
+
 
 class DayForecast {
     constructor(day, icon, temp, wind, humidity) {
@@ -36,15 +38,11 @@ class DayForecast {
 var foreCastArray;
 var todayWeather;
 
-// function getCordinates(data) {
-//     console.log("get Cordinates: ", data);
-// }
-
 function updateSavedCities(searchedCity) {
-    //when user click on search, save the city to local storage. if length of saved string is more than 8; remove the first itme and push ina the new city and save to localstorage
+    //when user click on search, save the city to local storage. 
     savedCities = JSON.parse(localStorage.getItem('citiesArray')) || [];
     console.log("savedCities is: ", savedCities);
-
+    //if length of saved string is more than 8; remove the first iem and push in the new city and save to localstorage
     if(searchedCity && !savedCities.includes(searchedCity.trim())) {
         if(savedCities?.length > 7) {
             savedCities.shift();
@@ -58,54 +56,53 @@ function updateSavedCities(searchedCity) {
 
 function displaySavedCities() {
     savedCities = JSON.parse(localStorage.getItem('citiesArray')) || [];
-    console.log("savedCities TO DISPLAY ::: ", savedCities);
     citiesContainerEl.innerHTML = '';
     //create button for each saved city
     savedCities.forEach((city) => {
-        console.log('city is: ', city);
         let button = document.createElement('button');
         button.textContent = city;
         button.classList.add('btn', 'btn-primary', 'btn-block');
         button.addEventListener('click', savedCityClicked);
         citiesContainerEl.appendChild(button);
-        //create a button event listener for button clicks?
     });
 
 }
 
+function showInvalidCityMessage() {
+    inValidCityEl.classList.remove('hidden');
+}
 
+function hideInvalidCityMessage() {
+    inValidCityEl.classList.add('hidden');
+}
 
 
 function getGeolocationApi() {
-    //geo location
-    // var city = "San francisco"
     var geoCodingApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
 
     fetch(geoCodingApiUrl)
     .then(function (response) {
-        console.log("Geo response is : ", response, response.ok );
         if(response.ok) {
+            hideInvalidCityMessage();
+            fiveDayForecastEL.classList.remove('hidden');
             return response.json();
         } else {
-            // alert("No data to display !!" + response.statusText);
             ///clear contents of forecast and todays weather container !!
             forecastWeatherContainerEl.innerHTML = '';
             todaysWeatherContainerEl.innerHTML = '';
+            fiveDayForecastEL.classList.add('hidden');
+            showInvalidCityMessage();
+            
         }
     })
     .then(function (data) {
         if(data?.name) {
-            console.log("Geo data : for ", data.name, "  ", data);
-            //TODO
             //save this city to local storagesss
             updateSavedCities(data.name);
-
             getTodaysWeatherDetails(data);
             displayTodaysWeather();
             latitude = data?.coord?.lat;
             longitude = data?.coord?.lon;
-            console.log("found coords for : ", data?.name, " lat: ", latitude, " longitude: ", longitude );
-
             //get its weather forecast.
             getWeatherApi();
         }
@@ -119,7 +116,6 @@ function getWeatherApi() {
 
     fetch(requestUrl)
         .then(function (response) {
-            console.log("response is : ", response );
             if(response.ok) {
                 return response.json();
             } else {
@@ -129,7 +125,6 @@ function getWeatherApi() {
             }
         })
         .then(function (data) {
-            console.log("Forecast weather data : ", data);
             get5daysForecast(data?.list);
             // Display 5 days forecast !
             displayForecast();
@@ -177,7 +172,7 @@ function displayForecast() {
             newParaWind.appendChild(newParaWindText);
         
             let newParaHumidity = document.createElement('p');
-            let newParaHumidityText = document.createTextNode(`Wind: ${forecast.humidity}`);
+            let newParaHumidityText = document.createTextNode(`Humidity: ${forecast.humidity}`);
             newParaHumidity.appendChild(newParaHumidityText);
         
             newDiv.appendChild(newPara);
@@ -191,7 +186,6 @@ function displayForecast() {
 }
 
 function getTodaysWeatherDetails(weatherData) {
-    console.log("getTodaysWeatherDetails with : ", weatherData);
     if(weatherData) {
     let day = city + " " + today.format("MMMM D, YYYY");
     let icon = weatherData.weather[0]?.icon;
@@ -204,9 +198,7 @@ function getTodaysWeatherDetails(weatherData) {
 }
 
 function displayTodaysWeather() {
-//    var todaysWeatherContainerEl = document.querySelector('#todays-weather');
-   console.log("todaysWeatherContainerEl : ", todaysWeatherContainerEl);
-   //clear the contents of the div.
+   // clear the contents of the div.
    todaysWeatherContainerEl.innerHTML = '';
    if(todayWeather) {
     let newDiv = document.createElement('div');
@@ -228,7 +220,7 @@ function displayTodaysWeather() {
     newParaWind.appendChild(newParaWindText);
 
     let newParaHumidity = document.createElement('p');
-    let newParaHumidityText = document.createTextNode(`Wind: ${todayWeather.humidity}`);
+    let newParaHumidityText = document.createTextNode(`Humidity: ${todayWeather.humidity}`);
     newParaHumidity.appendChild(newParaHumidityText);
 
     newDiv.appendChild(newPara);
@@ -242,26 +234,17 @@ function displayTodaysWeather() {
 }
 
 function getSearchResults(event) {
-    // console.log("event is: ", event);
-    // console.log("event is: ", searchTextEl);
     city = (searchTextEl.value).trim();
-    // console.log("Current city is: ", city);
     if(city) {
         getGeolocationApi();
     } else {
-        //instead of alert .. displaya  new div with "API error".
-        //alert("Please enter a valid city name!");
         forecastWeatherContainerEl.innerHTML = '';
         todaysWeatherContainerEl.innerHTML = '';
     }
 }
 
 function savedCityClicked() {
-    // city = this.textContent;
-    console.log('button event: ', event);
-    console.log('this : ', this);
     city = this.textContent;
-    console.log('City is: ', city);
     getGeolocationApi();
 }
 

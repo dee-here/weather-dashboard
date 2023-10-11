@@ -1,22 +1,20 @@
 body {
-    background-color: #adb1ff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 header {
     text-align: center;
-    background: linear-gradient(to bottom, #3500c7f3, #4c00ff);
+    background: linear-gradient(to left, #0048ff, #001eff);
     color: #fff;
     padding: 15px;
 }
 
-/* paragraph Frst letter should to be capitalized! */
+/* paragraph Frst letter should to be capitalized for display */
 p::first-letter {
     text-transform: uppercase;
   }
 
 .forecast-container {
-    /* border: 1px solid black;
-    border-radius: 5px; */
     display: flex;
 
 }
@@ -24,11 +22,26 @@ p::first-letter {
     border: 1px solid black;
     border-radius: 5px;
     margin: 10px;
-    /* background-color: #4704ffc8; */
     color: white;
     flex-basis: 20%;
     padding: 5px 10px;
     background: linear-gradient(to left, #0048ff, #001eff);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.forecast:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* todays weather display section  */
+#todays-weather .forecast {
+    background: linear-gradient(to right, #f8f8f8, #dadeff);
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#todays-weather .forecast:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);   
 }
 
 .hidden {
@@ -41,4 +54,33 @@ p::first-letter {
 
 #saved-cities-container button{
  margin: 10px 0;
+ background-color: #787878fc;
+ border-color: #363636;
+}
+
+#saved-cities-container button:hover {
+    background-color: #001eff;
+    border-color: #0000ff;
+ }
+
+.search{
+    text-align: center;
+}
+
+#search-text {
+    padding: 5px;
+}
+.search-block {
+    padding: 10px 0 10px 10px;
+}
+
+.search-block button {
+    background-color: #001eff;
+    border-color: #0000ff;
+}
+
+#five-day-forecast-text {
+    Font-size: 24px;
+    font-weight: bold;
+    margin: 20px 10px 0 10px;
 }
