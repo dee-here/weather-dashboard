@@ -16,9 +16,10 @@
 ## Description
 [Weather dashboard](https://dee-here.github.io/weather-dashboard/)
 
-This application uses https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}  web api to fetch curent and forecast conditions for the searched cty for the next 5 days.
+This application uses https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={APIkey}  web api to fetch curent and forecast conditions for the searched cty for the next 5 days.
 
-It also stores the last 8 citu names that were successfuly able to get weather conditions for. THe application removed the oldest cities after 8.
+It also stores the last 8 city names that were successfuly able to get weather conditions for into the local storage. The application removes the oldest cities after 8 unique cities. 
+When the application first loads we get the saved cities in the local storage and display it as options for the user to click and see its weather conditions.
 
 When a user enter an invalid city and clicks the search button, the user is shown an "Invalid city" message.
 
